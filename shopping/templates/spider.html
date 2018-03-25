@@ -1,0 +1,45 @@
+{% extends 'top.html' %}
+{% block title %}淘宝热门男装{% endblock %}
+{% block content %}
+<div class="row">
+    <hr/>
+        <div class="row" style="height:50px;margin:0 50px;background-color:#F8F8FF;">
+
+                <div style="float: left ;color: #999999"><font size="5">淘宝热门男装：</font></div>
+                <div style="float: left;text-align: center ;width: 700px;margin:10px 50px; ">
+{#                    <a href="/index/spider"   style="color:#000000;font-size: 17px;">淘宝商品</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
+                    <a href="/index/taobao-1" style="color:#000000;font-size: 17px;">特别好看的外套</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/index/taobao-2" style="color:#000000;font-size: 17px;">特别好看的内搭</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/index/taobao-3" style="color:#000000;font-size: 17px;">特别炫酷的裤子</a>
+                </div>
+
+        </div>
+    <hr/>
+        <div class="row" style="text-align:left;height: 400px;width:100%">
+
+            {% for foo in obj %}
+                <div class="col-md-2" style="text-align:center;height:250px;padding:10px 0px;margin:20px auto;padding:0px;">
+                    <a href="http:{{foo.url_link }}/" target="_blank">
+                        <img src="/{{ foo.img_path }}" width="200px" height="200px" style="display: inline-block;">
+
+                        <p style='color:#666'>{{ foo.sname }}</a></p>
+                    <p><font color="#E4393C" style="font-size:16px">&yen;{{ foo.price }}</font></p>
+                </div>
+            {% endfor %}
+        </div>
+
+</div>
+    <div class="row" style="text-align: center">
+    <nav aria-label="Page navigation">
+        <ul class="pagination" style="">
+            {% for i in page_list %}
+                {{ i|safe }}
+            {% endfor %}
+        </ul>
+    </nav>
+    </div>
+
+
+
+{% endblock %}
+

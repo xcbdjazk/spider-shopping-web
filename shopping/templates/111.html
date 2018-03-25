@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/static/js/jquery-1.9.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>文哥讨厌IE</title>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var $x=2;//<s >
+        $(":checkbox").click(function(){//.submit
+        var sum=0;
+        $(":checked").each(function(){
+                if($("this :checked")){
+                    sum+=parseFloat($(this).next().text());
+                }
+        });
+            $('#aa').html(sum)
+
+    });
+});
+</script>
+</head>
+<body>
+<form>
+    <input type="checkbox"/><span>0元</span>
+    <input type="checkbox"><span>1元</span>
+    <input type="checkbox"><span>2元</span>
+    <input type="checkbox"><span>3元</span>
+    <input type="checkbox"><span>4元</span>
+    <input type="submit" value="submit" class="submit">
+    <p id="aa"></p>
+</form>
+</body>
+</html>

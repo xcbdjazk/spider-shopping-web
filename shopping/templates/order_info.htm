@@ -1,0 +1,140 @@
+﻿{% extends 'top.html' %}
+{% block title %}订单提交{% endblock %}
+{% block content %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(":checkbox").click(function () {
+                var sum = 0;
+                $(":checked").each(function () {
+                    if ($("this :checked")) {
+                        if(($(this).next().text()).length!=0){
+                            {#var a=$(this).next().text()#}
+                            {#var b=parseInt(a)#}
+                            sum +=parseFloat($(this).next().text()) ;
+                             {#console.log(b);#}
+                        }
+                    }
+                });
+                $('#aa').html(sum.toFixed(2));
+            });
+            $('#imgclick').click(function(){
+                $('#order_form').submit()
+            })
+        });
+    </script>
+<form id="order_form" method="post" action="/index/order_info/">
+{% csrf_token %}
+		<div class="container">
+
+			<div class="row">
+
+				<div style="margin:0 auto;margin-top:10px;width:950px;">
+					<strong>订单详情</strong>
+					<table class="table table-bordered">
+						<tbody>
+                        {% for foo in obj %}
+							<tr class="warning" >
+
+                                    <th colspan="6" style="background-color: #ff6600">订单编号:{{ foo.oid }} </th>
+
+
+                                {#								<th colspan="5">订单编号:{{ foo.oid }} </th>#}
+							</tr>
+							<tr class="warning">
+								<th>图片</th>
+								<th>商品</th>
+								<th>价格</th>
+								<th>数量</th>
+								<th>小计</th>
+                                <th>选择</th>
+							</tr>
+							<tr class="active">
+								<td width="60" width="40%">
+									<input type="hidden" name="id" value="22">
+									<img src="/{{foo.img_path }}" width="70" height="60">
+								</td>
+								<td width="30%">
+									<a target="_blank"> {{ foo.pname }}</a>
+								</td>
+								<td width="20%">
+                                    ￥{{ foo.price }}
+								</td>
+								<td width="10%">
+									{{ foo.count }}
+								</td>
+								<td width="15%">
+									<span class="subtotal">￥{{ foo.totalprice }}</span>
+								</td>
+                                <td>
+                                    <input type="checkbox" name="check_order" value="{{foo.oid }}" /><strong style="display: none;">{{foo.totalprice}}</strong>
+{#                                    <input type="checkbox" name="order" value="{{ row.cid }}"><span >{{ row.totalprice }}</span>#}
+                                </td>
+							</tr>
+                        {% endfor %}
+						</tbody>
+					</table>
+				</div>
+
+				<div style="text-align:right;margin-right:120px;">
+					商品金额: <strong id="aa" style="color:#ff6600;">0.0</strong>
+				</div>
+
+			</div>
+
+			<div>
+				<hr/>
+				 <div style="height: 200px;margin: 20px 100px 50px;padding: 10px">
+                     <br>
+                     <br>
+					<div class="form-group">
+						<label for="username" class="col-sm-1 control-label">地址</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="username" placeholder="请输入收货地址">
+						</div>
+					</div>
+                    <br>
+                       <br>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-1 control-label">收货人</label>
+						<div class="col-sm-5">
+							<input type="password" class="form-control" id="inputPassword3" placeholder="请输收货人">
+						</div>
+					</div>
+                    <br>
+                       <br>
+					<div class="form-group">
+						<label for="confirmpwd" class="col-sm-1 control-label">电话</label>
+						<div class="col-sm-5">
+							<input type="password" class="form-control" id="confirmpwd" placeholder="请输入联系方式">
+						</div>
+					</div>
+                     <br>
+                 </div>
+
+				<hr/>
+
+				<div style="margin-top:5px;margin-left:150px;">
+					<strong>选择支付方式：</strong>
+					<p>
+						<br/>
+						<input type="radio" name="pd_FrpId" value="zhifubao" checked="checked" />支付宝
+						<img src="/static/bank_img/zhifubao.jpg" align="middle"  height="50px"width="180px"/>&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="pd_FrpId" value="weixin" />微信支付
+						<img src="/static/bank_img/weixin.jpg" align="middle"height="60px"width="200px" />&nbsp;&nbsp;&nbsp;&nbsp;
+					</p>
+					<hr/>
+					<p style="text-align:right;margin-right:100px;">
+
+							<img src="/static/images/finalbutton.gif" width="204" height="51" border="0" id="imgclick"/>
+
+					</p>
+					<hr/>
+
+				</div>
+			</div>
+
+
+		</div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'top.html' %}
+{% block title %}注册{% endblock %}
+{% block content %}
+    <div class="container"
+         style="width: 100%; background: url('/static/image/regist_bg.jpg');">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8"
+                 style="background: #fff; padding: 40px 80px; margin: 30px; border: 7px solid #ccc;">
+                <font onclick="submitdata()">会员注册</font>USER REGISTER
+                <form class="form-horizontal" style="margin-top: 5px;" action="/index/register/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username" class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-6">
+                            {#                        <input type="text" class="form-control" name="username"#}
+                            {#                               placeholder="请输入用户名">#}
+                            {{ obj.uname }}{{ obj.errors.uname.0 }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-6">
+                            {{ obj.pwd }}{{ obj.errors.pwd.0 }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmpwd" class="col-sm-2 control-label">确认密码</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="confirmpwd"
+                                   placeholder="请输入确认密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="usercaption" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-6">
+                            {{ obj.name }}{{ obj.errors.name.0 }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-6">
+                            {{ obj.email }}<p style="color: red">{{ obj.errors.email.0 }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group opt">
+                        <label for="inlineRadio1" class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-6">
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="inlineRadio1" value="0" checked="checked">
+                                男
+{#                                {{ obj.inlineRadioOptions }}#}
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="inlineRadio2" value="1">
+                            女
+                        </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date" class="col-sm-2 control-label">出生日期</label>
+                        <div class="col-sm-6">
+{#                            <input type="date" class="form-control" name="datetime">{{ obj.errors.datetime.0}}#}
+                            {{ obj.dtime }}{{ obj.errors.dtime.0 }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date" class="col-sm-2 control-label">验证码</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" name="checkcode">
+                            <p style="color: red">{{ err_code }}</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <img src="/index/checkcode.html" width="100px" height="30px"
+                                 onclick="changeCheckcode(this)"/>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" width="100" value="注册" name="submit"
+                                   style="background: url('/static/images/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0); height: 35px; width: 100px; color: white;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-2"></div>
+
+        </div>
+    </div>
+    <script>
+        function changeCheckcode(ths) {
+            ths.src = ths.src + '?'
+        }
+
+    </script>
+{% endblock %}

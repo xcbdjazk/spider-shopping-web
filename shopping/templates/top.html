@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title%}{% endblock %}</title>
+    <link href="/static/style/shopdetail.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/js/common.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css"/>
+    <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
+    <style>
+        body {
+            {#background: url("/static/bank_img/5-120601095334.jpg");#}
+            background-color: white;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $('#firstbuy').click(function () {
+                $.ajax({
+                    url:'/index/cart/',
+                    type:'POST',
+                    data:{csrfmiddlewaretoken: '{{ csrf_token }}',
+                        'img_path':'{{ obj.img_path}}',
+                        'pname':'{{ obj.pname }}',
+                        'price': '{{ obj.price }}',
+                    },
+                    success:function (da) {
+                        {#alert(da)#}
+                        location.href ="/index/cart/"
+                    }
+                })
+            })
+        })
+
+    </script>
+
+</head>
+
+<body>
+<hr>
+<div class="container-fluid">
+
+    <!--
+
+        描述：菜单栏
+    -->
+    <div class="container-fluid">
+        <div class="col-md-4" style="text-align: center">
+            <img src="/static/img/loggggg.png" height="50"width="180"/>
+        </div>
+        <div class="col-md-5">
+            <img src="/static/img/header.png"/>
+        </div>
+        <div class="col-md-3" style="padding-top:20px">
+            <ol class="list-inline">
+                {% if  request.session.is_login %}
+                    <li>欢迎你，{{request.session.username }}</li>
+                    <li><a href="/index/loginout">[退出]</a></li>
+                {% else %}
+                    <li><a href="/index/login_user">登录</a></li>
+                {% endif %}
+
+                <li><a href="/index/register">注册</a></li>
+                <li><a href="/index/cart">购物车</a></li>
+            </ol>
+        </div>
+    </div>
+<hr>
+    <!--
+
+        描述：导航条
+    -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/index/index_info">首页</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/index/spider_nanzhuang" target="_blank">淘宝男装</a></li>
+                    {#        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>#}
+                    <li><a href="/index/spider_nvzhuang">淘宝女装</a></li>
+                    <li><a href="#">苏宁热门</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">商城自选 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">手机</a></li>
+                            <li><a href="#">笔记本电脑</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" action="/index/login/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="seek" class="form-control" placeholder="搜索">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">友情链接</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">手机</a></li>
+                            <li><a href="#">笔记本电脑</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+
+    {% block content %}{% endblock %}
+{#    插入模板#}
+
+
+
+    <div class="container-fluid">
+        <div style="margin-top:50px;">
+            <img src="/static/img/footer.jpg" width="100%" height="78" alt="我们的优势" title="我们的优势"/>
+        </div>
+
+        <div style="text-align: center;margin-top: 5px;">
+            <ul class="list-inline">
+                <li><a href="info.html">关于我们</a></li>
+                <li><a>联系我们</a></li>
+                <li><a>招贤纳士</a></li>
+                <li><a>法律声明</a></li>
+                <li><a>友情链接</a></li>
+
+                <li><a>广告声明</a></li>
+{#                <li><a><img src="/index/checkcode.html"></a></li>#}
+            </ul>
+        </div>
+        <div style="text-align: center;margin-top: 5px;margin-bottom:20px;">
+            Copyright &copy; 2017-2018 PY商城 版权所有
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+</html>

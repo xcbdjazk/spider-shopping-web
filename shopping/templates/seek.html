@@ -1,0 +1,29 @@
+{% extends 'top.html' %}
+{% block title %}查询商品{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+
+
+        <div class="col-md-12" style="text-align:center;height: 400px;width: 100%">
+            {% for foo in obj %}
+                <div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
+                    <a href="/index/shopdetail-{{ foo.pid }}/">
+                        <img src="/{{ foo.img_path }}" width="130" height="130" style="display: inline-block;">
+
+                        <p style='color:#666'>{{ foo.pname }}</a></p>
+                    <p><font color="#E4393C" style="font-size:16px">&yen;{{ foo.price }}</font></p>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination" style="float: right">
+            {% for i in page_list %}
+                {{ i|safe }}
+            {% endfor %}
+        </ul>
+    </nav>
+{% endblock %}
+

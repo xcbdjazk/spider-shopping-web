@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <form action="/index/addproduct/" method="post"enctype="multipart/form-data">
+            {% csrf_token %}
+            图片：<input type="file" name="img_path"><br>
+            名字：<input type="text" name="pname"><br>
+            价格：<input type="text" name="price"><br>
+            库存：<input type="text" name="Stock"><br>
+            是否热门：<select name="is_host"><br>
+                <option value=True>热门</option>
+                <option value=False>非热门</option>
+            </select><br>
+            介绍：<textarea name="recommend"></textarea><br>
+            分类：<select name="sort">
+                <option value="1">蔬菜</option>
+                <option value="2">电器</option>
+            </select><br>
+            <input type="submit" value="提交">
+
+        </form>
+</body>
+</html>
